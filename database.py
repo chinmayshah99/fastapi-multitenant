@@ -15,11 +15,11 @@ db_name = os.environ.get("POSTGRES_DB")
 db_port = os.environ.get("POSTGRES_PORT", 5432)  # Default to 5432 if not set
 
 # Construct the SQLAlchemy database URL
-SQLALCHEMY_DATABASE_URL = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
-
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL
+SQLALCHEMY_DATABASE_URL = (
+    f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 )
+
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()

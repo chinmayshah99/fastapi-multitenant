@@ -13,9 +13,7 @@ router = APIRouter(prefix=f"/{tag}", tags=[tag.capitalize()])
 domain_mapping = map_domain_to_class(tag, BaseUser)
 
 
-@router.get("",
-            response_model=map_response_model_output(BaseUserAll, tag)
-            )
+@router.get("", response_model=map_response_model_output(BaseUserAll, tag))
 def all_users(db: Session = Depends(get_db), domain: Domain = Header(None)):
     user_object = domain_mapping[domain]
     return user_object.get_all_users(db)

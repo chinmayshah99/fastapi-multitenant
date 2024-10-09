@@ -1,7 +1,7 @@
 from base_models import UserMixin, NoteMixin
 from database import get_base
 
-Base = get_base("tenant_a")
+Base = get_base("tenant_b")
 
 
 class User(Base, UserMixin):
