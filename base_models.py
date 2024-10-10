@@ -6,7 +6,6 @@ from sqlalchemy import Column, Integer, String, Boolean, DateTime
 class UserMixin:
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
-    password = Column(String)
     name = Column(String)
     is_active = Column(Boolean, default=True)
 
