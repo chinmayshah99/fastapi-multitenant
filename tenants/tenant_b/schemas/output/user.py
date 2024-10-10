@@ -1,5 +1,5 @@
 from schemas.output.user import BaseUserAll
 
 
-class TenantAUserAll(BaseUserAll):
+class TenantBUserAll(BaseUserAll):
     pass

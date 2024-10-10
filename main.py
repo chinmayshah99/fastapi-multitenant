@@ -1,15 +1,19 @@
 from contextlib import asynccontextmanager
+import importlib
 
 from fastapi import FastAPI
 
 from database import engine
 from routers.user import router as user_router
-from tenant_a.models import Base as tenantABase
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    tenantABase.metadata.create_all(bind=engine)
+    # dynamically import models from tenants
+    for tenant in ['tenant_a', 'tenant_b']:
+        module = importlib.import_module(f"tenants.{tenant}.models")
+        Base = getattr(module, 'Base')
+        Base.metadata.create_all(bind=engine)
     yield
 
 

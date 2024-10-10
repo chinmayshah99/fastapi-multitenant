@@ -59,7 +59,7 @@ permission_exception = HTTPException(
 
 def dynamic_import_module(package_name: str, module_name: str = "models"):
     try:
-        full_module_name = f"{package_name}.{module_name}"
+        full_module_name = f"tenants.{package_name}.{module_name}"
         module = importlib.import_module(full_module_name)
         return module
     except ImportError as e:
