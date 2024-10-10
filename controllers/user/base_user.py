@@ -17,9 +17,11 @@ class BaseUser:
         return ResponseModel(
             data={"users": users_data}, message="Users fetched successfully", error=None
         )
-    
+
     def create_user(self, db: Session, user: BaseUserCreate):
-        user = self.models.User(email=user.email, name=user.name, is_active=user.is_active)
+        user = self.models.User(
+            email=user.email, name=user.name, is_active=user.is_active
+        )
         db.add(user)
         db.commit()
         db.refresh(user)
