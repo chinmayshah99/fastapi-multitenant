@@ -19,12 +19,17 @@ class BaseUser:
         )
 
     def create_user(self, db: Session, user: BaseUserCreate):
-        user = self.models.User(
+        existing_user = db.query(self.models.User).filter(self.models.User.email == user.email).first()
+        if existing_user:
+            return ResponseModel(
+                data=None, message="User already exists", error="User already exists"
+            )
+        new_user = self.models.User(
             email=user.email, name=user.name, is_active=user.is_active
         )
-        db.add(user)
+        db.add(new_user)
         db.commit()
-        db.refresh(user)
+        db.refresh(new_user)
         return ResponseModel(
-            data={"user": user}, message="User created successfully", error=None
+            data={"user": new_user}, message="User created successfully", error=None
         )
